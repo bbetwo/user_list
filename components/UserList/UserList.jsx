@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import style from "./UserList.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import { FixedSizeList } from 'react-window'
@@ -21,24 +21,24 @@ export const UserList = () => {
     const selectUser = useSelector((state) => state.userData)
     const selectUserFind = useSelector((state) => state.userFind)
 
-    const handlTargetUser = (user) => {
-        dispatch({type: 'USER_FIND', payload: user})
-        console.log(user);        
-    }
+    const handlTargetUser = useCallback((user) => {
+        dispatch({ type: 'USER_FIND', payload: user })
+        console.log(user);
+    })
 
     useEffect(() => {
-        
+
         dispatch({ type: 'USER_DATA', payload: userGenerate(1000000) })
     }, [])
 
-    const row = ({key, index, style }) => (
-        <div onClick={() => {handlTargetUser(selectUser[index])}}
-        key={key} 
-        style={style} 
-        className='row'>
+    const row = useCallback(({ key, index, style }) => (
+        <div onClick={() => { handlTargetUser(selectUser[index]) }}
+            key={key}
+            style={style}
+            className='row'>
             {selectUser[index].name}
         </div>
-    )
+    ))
 
     return (
         <>
@@ -52,7 +52,7 @@ export const UserList = () => {
                     overscanRowCount={100}
                 />
             </div>
-            
+
         </>
     )
 }
