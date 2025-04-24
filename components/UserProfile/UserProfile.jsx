@@ -33,8 +33,8 @@ console.log(selectUserFind.name,'sss');
       return{
       ...formEdit,
       [field]: e.target.value
-    }}),[])
-  }
+    }})
+  },[])
 
   const handleSubmitField = useCallback((e) => {
     console.log('sssdsdsadasd');
