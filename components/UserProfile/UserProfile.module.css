@@ -1,0 +1,44 @@
+.userListWrraper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.userName {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    background-color: #202651;
+    margin-bottom: 10px;
+}
+
+.userList {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+.userItem {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.user-title {}
+
+.userDiscription {
+    border: 1px solid gray;
+    padding: 5px;
+    flex: 0 1 50%;
+}
+
+.listButt{
+    width: 150px;
+    padding: 10px 15px;
+    align-self: center;
+    border-radius: 5px;
+    background-color: #81375fed;
+   
+}
