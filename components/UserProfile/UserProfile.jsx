@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import style from "./UserProfile.module.css"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 export const UserProfile = () => {
 
@@ -26,22 +26,22 @@ console.log(selectUserFind.name,'sss');
   },[selectUserFind])
   
 
-  const handleChangeField = (e, field) => {
+  const handleChangeField = useCallback((e, field) => {
     console.log(e,'tt');
     
     setFormEdit(()=>{
       return{
       ...formEdit,
       [field]: e.target.value
-    }})
+    }}),[])
   }
 
-  const handleSubmitField = (e) => {
+  const handleSubmitField = useCallback((e) => {
     console.log('sssdsdsadasd');
     
     e.preventDefault();
     dispatch({type: 'USER-EDIT', payload: formEdit})
-  }
+  },[dispatch, formEdit])
 
   return (
     <>

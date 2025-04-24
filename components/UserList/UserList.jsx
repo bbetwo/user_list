@@ -21,14 +21,16 @@ export const UserList = () => {
     const selectUser = useSelector((state) => state.userData)
     const selectUserFind = useSelector((state) => state.userFind)
 
+    const MILLION_USER = 1000000;
+
     const handlTargetUser = useCallback((user) => {
         dispatch({ type: 'USER_FIND', payload: user })
         console.log(user);
-    })
+    },[dispatch])
 
     useEffect(() => {
 
-        dispatch({ type: 'USER_DATA', payload: userGenerate(1000000) })
+        dispatch({ type: 'USER_DATA', payload: userGenerate(MILLION_USER) })
     }, [])
 
     const row = useCallback(({ key, index, style }) => (
@@ -38,7 +40,7 @@ export const UserList = () => {
             className='row'>
             {selectUser[index].name}
         </div>
-    ))
+    ),[selectUser, handlTargetUser] )
 
     return (
         <>
