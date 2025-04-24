@@ -27,11 +27,11 @@ console.log(selectUserFind.name,'sss');
   
 
   const handleChangeField = useCallback((e, field) => {
-    console.log(e,'tt');
+    console.log('tt');
     
-    setFormEdit(()=>{
+    setFormEdit((prevUser)=>{
       return{
-      ...formEdit,
+      ...prevUser,
       [field]: e.target.value
     }})
   },[])
@@ -51,7 +51,7 @@ console.log(selectUserFind.name,'sss');
           
           <div className={style.userItem}>
             <div className="user-title">Имя</div>
-            <input className={style.userDiscription} value={formEdit.name} />
+            <input className={style.userDiscription} value={formEdit.name} disabled />
           </div>
           <div className={style.userItem}>
             <div className="user-title">Отдел</div>
