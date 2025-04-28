@@ -26,7 +26,7 @@ export const UserList = () => {
     const handlTargetUser = useCallback((user) => {
         dispatch({ type: 'USER_FIND', payload: user })
         console.log(user);
-    },[dispatch])
+    }, [dispatch])
 
     useEffect(() => {
 
@@ -40,7 +40,7 @@ export const UserList = () => {
             className='row'>
             {selectUser[index].name}
         </div>
-    ),[selectUser, handlTargetUser] )
+    ), [selectUser, handlTargetUser])
 
     return (
         <>
