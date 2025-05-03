@@ -3,14 +3,16 @@ import style from "./UserList.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import { FixedSizeList } from 'react-window'
 import { List } from 'react-virtualized';
+import { Row } from "./Row";
 
 const userGenerate = (num) => {
     const usersList = Array.from({ length: num }, (_, i) => ({
+        
         id: i + 1,
         name: `Пользователь ${i + 1}`,
-        jobTitle: 'dev',
-        departament: 'ss',
-        company: 'mts',
+        jobTitle: ['dev','rabotyaga','kura'][i % 3],
+        departament: ['front','freza','yandex-lavka'][i % 3],
+        company: ['mts','yandex','MAIL.RU-amigo_edition'][i % 3],
     }))
 
     return usersList
@@ -32,15 +34,26 @@ export const UserList = () => {
 
         dispatch({ type: 'USER_DATA', payload: userGenerate(MILLION_USER) })
     }, [])
-
-    const row = useCallback(({ key, index, style }) => (
-        <div onClick={() => { handlTargetUser(selectUser[index]) }}
+    console.log('sadasdasda');
+    
+    const row = useCallback(({ key, index, style }) =>  {
+        console.log('rirender ss');
+         return(
+            <Row 
             key={key}
+            index={index}
             style={style}
-            className='row'>
-            {selectUser[index].name}
-        </div>
-    ), [selectUser, handlTargetUser])
+            onClick={handlTargetUser}
+            user={selectUser[index]}
+            />
+         )
+    //    return (<div onClick={() => { handlTargetUser(selectUser[index]) }}
+    //         key={key}
+    //         style={style}
+    //         className='row'>
+    //         {selectUser[index].name}
+    //     </div>)
+    }, [selectUser, handlTargetUser])
 
     return (
         <>

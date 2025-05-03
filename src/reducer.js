@@ -24,10 +24,13 @@ export const rootReducer = (state = initialState, action) => {
             const index = state.userData.findIndex((el) => {
                 return el.id === id
             })
-
+            console.log('RABOTAET ??');
+            
             const newObj = { ...state.userData[index], ...action.payload }
 
             const newState = [...state.userData.slice(0, index), newObj, ...state.userData.slice(index + 1)]
+            console.log(newState,'EBATTTTT');
+            
         return {
                 ...state,
                 userData: newState

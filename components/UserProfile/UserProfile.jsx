@@ -3,27 +3,27 @@ import style from "./UserProfile.module.css"
 import { useCallback, useEffect, useState } from "react"
 
 export const UserProfile = () => {
-
-  const [formEdit, setFormEdit] = useState({
-    name: '',
-    jobTitle: '',
-    departament: '',
-    company: '',
-  })
-
   const selectUserFind = useSelector(state => state.userFind)
   const dispatch = useDispatch();
 
-  console.log(selectUserFind.name, 'sss');
+  const [formEdit, setFormEdit] = useState({})
 
   useEffect(() => {
+    const user = {
+      name: selectUserFind?.name || '',
+      jobTitle: selectUserFind?.jobTitle || '',
+      departament: selectUserFind?.departament || '',
+      company: selectUserFind?.company || ''
+    }
 
-    setFormEdit(selectUserFind)
+    setFormEdit(user)
+
+    console.log('effect srzbotal', user);
+    
   }, [selectUserFind])
 
 
   const handleChangeField = useCallback((e, field) => {
-
     setFormEdit((prevUser) => {
       return {
         ...prevUser,
@@ -33,10 +33,28 @@ export const UserProfile = () => {
 
   }, [])
 
-  const handleSubmitField = useCallback((e) => {
+  const handlerSubmitApi = async () => {
+    
+      
+      const res = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name: formEdit.name})
+      })
+      
+   
 
+    const data = await res.json()
+    console.log(res.url,'ppc');
+    
+  }
+
+  const handleSubmitField = useCallback((e) => {
+    console.log(formEdit,'alo nahui ss');
+    
     e.preventDefault();
     dispatch({ type: 'USER-EDIT', payload: formEdit })
+    handlerSubmitApi();
 
   }, [dispatch, formEdit])
 
