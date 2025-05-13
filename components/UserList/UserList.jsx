@@ -3,7 +3,7 @@ import style from "./UserList.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import { FixedSizeList } from 'react-window'
 import { List } from 'react-virtualized';
-import { Row } from "./Row";
+import { UserItem } from "../UserItem/UsetItem";
 
 const userGenerate = (num) => {
     const usersList = Array.from({ length: num }, (_, i) => ({
@@ -21,13 +21,13 @@ const userGenerate = (num) => {
 export const UserList = () => {
     const dispatch = useDispatch();
     const selectUser = useSelector((state) => state.userData)
-    const selectUserFind = useSelector((state) => state.userFind)
+   
 
     const MILLION_USER = 1000000;
 
     const handlTargetUser = useCallback((user) => {
         dispatch({ type: 'USER_FIND', payload: user })
-        console.log(user);
+        console.log(user,'asdasdaf f f f f');
     }, [dispatch])
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export const UserList = () => {
     const row = useCallback(({ key, index, style }) =>  {
         console.log('rirender ss');
          return(
-            <Row 
+            <UserItem 
             key={key}
             index={index}
             style={style}

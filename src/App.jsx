@@ -1,3 +1,4 @@
+import { ProfileForm } from "../components/ProfileForm/ProfileForm"
 import { UserApi } from "../components/UserApi/UserApi"
 import { UserList } from "../components/UserList/UserList"
 import { UserProfile } from "../components/UserProfile/UserProfile"
@@ -11,7 +12,7 @@ function App() {
     <>
     <div className='appBase'>
       <UserList />
-      <UserProfile />
+      <ProfileForm />
       <UserApi />
     </div>
     </>

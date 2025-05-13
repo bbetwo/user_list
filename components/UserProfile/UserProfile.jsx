@@ -3,25 +3,24 @@ import style from "./UserProfile.module.css"
 import { useCallback, useEffect, useState } from "react"
 
 export const UserProfile = () => {
+  const [formEdit, setFormEdit] = useState({})
+
   const selectUserFind = useSelector(state => state.userFind)
   const dispatch = useDispatch();
 
-  const [formEdit, setFormEdit] = useState({})
 
   useEffect(() => {
     const user = {
+      id: selectUserFind?.id || '',
       name: selectUserFind?.name || '',
       jobTitle: selectUserFind?.jobTitle || '',
       departament: selectUserFind?.departament || '',
       company: selectUserFind?.company || ''
     }
-
     setFormEdit(user)
-
     console.log('effect srzbotal', user);
-    
-  }, [selectUserFind])
 
+  }, [selectUserFind])
 
   const handleChangeField = useCallback((e, field) => {
     setFormEdit((prevUser) => {
@@ -30,28 +29,84 @@ export const UserProfile = () => {
         [field]: e.target.value
       }
     })
-
   }, [])
 
-  const handlerSubmitApi = async () => {
-    
-      
-      const res = await fetch('http://localhost:3000/users', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name: formEdit.name})
-      })
-      
-   
+  // const handlerSubmitApi = async () => {  
+  //     try{
+  //       const res = await fetch('http://localhost:3000/users', {
+  //         method: 'POST',
+  //         headers: {'Content-Type': 'application/json'},
+  //         body: JSON.stringify({name: formEdit.name})
+  //       })
 
-    const data = await res.json()
-    console.log(res.url,'ppc');
-    
+  //       if(!res.ok){
+  //         throw new Error("HTTP-ERROR",res.status);          
+  //       }
+
+  //       const data = await res.json()
+  //       console.log("Dannie otpravleni: ", data);
+
+  //     } catch(err) {
+  //       console.error(err,'Oshibochka bratishka');
+  //     }
+  // }
+
+  // const handlerSubmitApi =async () => {
+  //   try{
+  //     const response = await fetch('http://localhost:3000/users', {
+  //       method: 'POST',
+  //       headers:{'Content-type': 'application/json'},
+  //       body:JSON.stringify({name: formEdit.name}) 
+  //     })
+  //     if(!response.ok){
+  //       throw new Error('oshibka', response.status)
+  //     }
+  //     const data = await response.json();
+  //   } catch(error){
+  //     console.error(error);
+  //   };
+
+  // }
+
+  const handlerSubmitApi = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/user-test", {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify({
+          name: formEdit.name,
+          time: new Date().toISOString()
+        })
+      })
+    } catch (error) {
+      console.error(error);
+    }
+
   }
 
+//   const handlerSubmitApi2 = async () => {
+//     try {
+//         const response = await fetch('http://localhost:3000/user-test',{
+//             method: 'POST',
+//             headers: {'Content-type': 'application/json'},
+//             body: JSON.stringify({name:formEdit.name})
+//                  
+//             
+//         })
+
+//         if(!response.ok){
+//             throw new Error('oshbka', response.status)        
+//         }
+
+//         const data = await response.json();
+//         console.log(data);
+        
+//     } catch(error){
+//         console.error(error);        
+//     }
+//   }
+
   const handleSubmitField = useCallback((e) => {
-    console.log(formEdit,'alo nahui ss');
-    
     e.preventDefault();
     dispatch({ type: 'USER-EDIT', payload: formEdit })
     handlerSubmitApi();
