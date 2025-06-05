@@ -4,13 +4,21 @@ import style from "../UserProfile/UserProfile.module.css";
 import { useState, useEffect, useCallback } from "react";
 import { userEdit } from "../../store/actions";
 
+interface ProfileTypes {
+  id?: number;
+  name?: string;
+  jobTitle?: string;
+  departament?: string;
+  company?: string;
+}
+
 export const ProfileForm = () => {
-  const [formEdit, setFormEdit] = useState({});
+  const [formEdit, setFormEdit] = useState<ProfileTypes>({});
 
   const selectUserFind = useSelector((state) => state.userFind);
   const dispatch = useDispatch();
   console.log(selectUserFind);
-
+  
   useEffect(() => {
     const user = {
       id: selectUserFind?.id || "",
@@ -52,7 +60,7 @@ export const ProfileForm = () => {
     [dispatch, formEdit, handleSubmitApi]
   );
 
-  const handleChangeField = useCallback((value, field) => {
+  const handleChangeField = useCallback((value:string, field:string) => {
     setFormEdit((prevUser) => {
       return {
         ...prevUser,

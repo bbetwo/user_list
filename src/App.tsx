@@ -1,4 +1,3 @@
-import { ThemContext } from "./context/ThemContext";
 import { ProfileForm } from "./components/ProfileForm/ProfileForm";
 import { UserList } from "./components/UserList/UserList";
 
