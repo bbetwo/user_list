@@ -23,7 +23,7 @@ export const UserList = () => {
     [dispatch]
   );
 
-  const row = useCallback(
+  const rowItem = useCallback(
     ({ key, index, style }) => {
       console.log("rirender ss");
       return (
@@ -47,7 +47,7 @@ export const UserList = () => {
           width={350}
           rowHeight={30}
           rowCount={selectUser.length}
-          rowRenderer={row}
+          rowRenderer={rowItem}
           overscanRowCount={100}
         />
       </div>

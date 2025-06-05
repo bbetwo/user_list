@@ -8,7 +8,7 @@ export const UserItem = React.memo(({ style, user, onClick }) => {
       style={style}
       className="row"
     >
-      {user.name} s
+      {user.name}
     </div>
   );
 });

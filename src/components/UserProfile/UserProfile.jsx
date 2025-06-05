@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import style from "./UserProfile.module.css";
 import { useCallback, useEffect, useState } from "react";
 
-export const UserProfile = () => {
+const UserProfile = () => {
   const [formEdit, setFormEdit] = useState({});
 
   const selectUserFind = useSelector((state) => state.userFind);
@@ -66,20 +66,20 @@ export const UserProfile = () => {
 
   // }
 
-  const handlerSubmitApi = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/user-test", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-          name: formEdit.name,
-          time: new Date().toISOString(),
-        }),
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const handlerSubmitApi = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/user-test", {
+  //       method: "POST",
+  //       headers: { "Content-type": "application/json" },
+  //       body: JSON.stringify({
+  //         name: formEdit.name,
+  //         time: new Date().toISOString(),
+  //       }),
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   //   const handlerSubmitApi2 = async () => {
   //     try {
