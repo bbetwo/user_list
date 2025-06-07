@@ -1,4 +1,4 @@
-export const userGenerate = (num) => {
+export const userGenerate = (num:number) => {
   const usersList = Array.from({ length: num }, (_, i) => ({
     id: i + 1,
     name: `Пользователь ${i + 1}`,

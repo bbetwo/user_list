@@ -16,7 +16,7 @@ export const UserApi = () => {
   // },[])
   return (
     <>
-      <div>{isLoad ? data[0].text : "netunihuya..."}</div>
+      {/* <div>{isLoad ? data[0].text : "netunihuya..."}</div> */}
     </>
   );
 };

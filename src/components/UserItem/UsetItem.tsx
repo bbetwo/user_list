@@ -1,5 +1,13 @@
-import React from "react";
-export const UserItem = React.memo(({ style, user, onClick }) => {
+import React, { CSSProperties } from "react";
+import { ProfileTypes } from "../ProfileForm/ProfileForm";
+
+interface UserItemType {
+  style: CSSProperties | undefined;
+  user: ProfileTypes
+  onClick:(u:ProfileTypes)=> void
+}
+
+export const UserItem = React.memo(({ style, user, onClick }:UserItemType) => {
   return (
     <div
       onClick={() => {

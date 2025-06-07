@@ -3,8 +3,9 @@ import { FormField } from "../FormField/FormField";
 import style from "../UserProfile/UserProfile.module.css";
 import { useState, useEffect, useCallback } from "react";
 import { userEdit } from "../../store/actions";
+import { RootStore } from "../../store/store";
 
-interface ProfileTypes {
+export interface ProfileTypes {
   id?: number;
   name?: string;
   jobTitle?: string;
@@ -15,17 +16,17 @@ interface ProfileTypes {
 export const ProfileForm = () => {
   const [formEdit, setFormEdit] = useState<ProfileTypes>({});
 
-  const selectUserFind = useSelector((state) => state.userFind);
+  const selectUserFind = useSelector((state:RootStore) => state.userFind);
   const dispatch = useDispatch();
   console.log(selectUserFind);
   
   useEffect(() => {
-    const user = {
-      id: selectUserFind?.id || "",
-      name: selectUserFind?.name || "",
-      jobTitle: selectUserFind?.jobTitle || "",
-      departament: selectUserFind?.departament || "",
-      company: selectUserFind?.company || "",
+    const user: ProfileTypes = {
+      id: selectUserFind?.id ,
+      name: selectUserFind?.name ,
+      jobTitle: selectUserFind?.jobTitle ,
+      departament: selectUserFind?.departament ,
+      company: selectUserFind?.company ,
     };
     setFormEdit(user);
     console.log("effect srzbotal", user);
@@ -37,7 +38,7 @@ export const ProfileForm = () => {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
-          name: selectUserFind.name,
+          name: selectUserFind?.name,
         }),
       });
       if (!response.ok) {
@@ -51,7 +52,7 @@ export const ProfileForm = () => {
   };
 
   const handleSubmitField = useCallback(
-    (e) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(userEdit(formEdit));
       handleSubmitApi();
@@ -70,7 +71,7 @@ export const ProfileForm = () => {
   }, []);
 
   return (
-    Object.keys(selectUserFind).length > 0 && (
+    selectUserFind?.id && (
       <form
         onSubmit={(e) => handleSubmitField(e)}
         className={style.userListWrraper}
@@ -83,28 +84,28 @@ export const ProfileForm = () => {
             style={style}
             onChange={handleChangeField}
             title={"Имя"}
-            job={formEdit.name}
+            job={formEdit.name || ''}
             field={"name"}
           />
           <FormField
             style={style}
             onChange={handleChangeField}
             title={"Отдел"}
-            job={formEdit.jobTitle}
+            job={formEdit.jobTitle || ''}
             field={"jobTitle"}
           />
           <FormField
             style={style}
             onChange={handleChangeField}
             title={"Компания"}
-            job={formEdit.departament}
+            job={formEdit.departament || ''}
             field={"departament"}
           />
           <FormField
             style={style}
             onChange={handleChangeField}
             title={"Должность"}
-            job={formEdit.company}
+            job={formEdit.company || ''}
             field={"company"}
           />
         </div>

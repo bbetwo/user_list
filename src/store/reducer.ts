@@ -1,13 +1,34 @@
 import { USER_DATA, USER_FIND, USER_EDIT } from "./actionsType";
 
-const initialState = {
+type User = {
+    id: number,
+    name: string,
+    jobTitle: string,
+    departament: string,
+    company: string,
+}
+
+interface RootReducer {
+  userData: User[] ;
+  userFind: User | null;
+  userEdit: User | null;
+}
+
+type Action = 
+  | {type: "USER_DATA"; payload: User[]} 
+  | {type: "USER_FIND"; payload: User} 
+  | {type: "USER_EDIT"; payload: User};
+  
+
+
+const initialState:RootReducer = {
   userData: [],
-  userFind: {},
-  userEdit: {},
+  userFind: null,
+  userEdit: null,
 };
 
 
-const updateArrayUsers = (users, updateUser, id) => {
+const updateArrayUsers = (users:User[], updateUser: User, id:number): User[] => {
   let hasUpd = false;
 
   const currIndex = users.findIndex((el) => {
@@ -20,22 +41,23 @@ const updateArrayUsers = (users, updateUser, id) => {
 
   const currUser = users[currIndex];
 
-  let hasTest;
 
-  hasTest = Object.entries(currUser).some(([key, value]) => {
+
+  const hasTest = (Object.entries(currUser) as Array<[keyof User, string | number]> ).some(([key, value]) => {
     return updateUser[key] !== value;
   });
 
+
   console.log(hasTest, "TEST SS");
 
-  for (const k in currUser) {
-    if (currUser[k] !== updateUser[k]) {
-      hasUpd = true;
-      break;
-    }
-  }
+  // for (const k  in currUser) {
+  //   if (currUser[k as keyof User] !== updateUser[k as keyof User]) {
+  //     hasUpd = true;
+  //     break;
+  //   }
+  // }
 
-  if (!hasUpd) {
+  if (hasUpd) {
     console.log("ne obnovil");
 
     return users;
@@ -47,7 +69,7 @@ const updateArrayUsers = (users, updateUser, id) => {
   return [...users.slice(0, currIndex), newObj, ...users.slice(currIndex + 1)];
 };
 
-export const rootReducer = (state = initialState, action) => {
+export const rootReducer = (state: RootReducer = initialState, action:Action) => {
   switch (action.type) {
     case USER_DATA:
       return {

@@ -1,30 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import style from "./UserProfile.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
+import { RootStore } from "../../store/store";
+import { ProfileTypes } from "../ProfileForm/ProfileForm";
 
 const UserProfile = () => {
-  const [formEdit, setFormEdit] = useState({});
+  const [formEdit, setFormEdit] = useState<ProfileTypes>({});
 
-  const selectUserFind = useSelector((state) => state.userFind);
+  const selectUserFind = useSelector((state:RootStore) => state.userFind);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const user = {
-      id: selectUserFind?.id || "",
-      name: selectUserFind?.name || "",
-      jobTitle: selectUserFind?.jobTitle || "",
-      departament: selectUserFind?.departament || "",
-      company: selectUserFind?.company || "",
+      id: selectUserFind?.id ,
+      name: selectUserFind?.name ,
+      jobTitle: selectUserFind?.jobTitle ,
+      departament: selectUserFind?.departament ,
+      company: selectUserFind?.company ,
     };
     setFormEdit(user);
     console.log("effect srzbotal", user);
   }, [selectUserFind]);
 
-  const handleChangeField = useCallback((e, field) => {
+  const handleChangeField = useCallback((e: React.ChangeEvent<HTMLInputElement>, field: keyof ProfileTypes) => {
     setFormEdit((prevUser) => {
       return {
         ...prevUser,
-        [field]: e.target.value,
+        [field]: e.currentTarget.value,
       };
     });
   }, []);
@@ -104,17 +106,17 @@ const UserProfile = () => {
   //   }
 
   const handleSubmitField = useCallback(
-    (e) => {
+    (e:React.FormEvent<HTMLElement>) => {
       e.preventDefault();
       dispatch({ type: "USER-EDIT", payload: formEdit });
-      handlerSubmitApi();
+      // handlerSubmitApi();
     },
-    [dispatch, formEdit, handlerSubmitApi]
+    [dispatch, formEdit]
   );
 
   return (
     <>
-      {Object.keys(selectUserFind).length > 0 && (
+      {selectUserFind?.id && (
         <form
           onSubmit={(e) => handleSubmitField(e)}
           className={style.userListWrraper}
